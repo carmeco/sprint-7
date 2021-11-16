@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [price, setprice] = useState(0);
+    const handleInputChange = () => {
+        setprice((price) => (price += 500));
+        /* console.log(value); */
+    };
+    return (
+        <div>
+            <p>Què vols fer?</p>
+            <form>
+                <ul>
+                    <li>
+                        <input
+                            id="website"
+                            type="checkbox"
+                            onChange={handleInputChange}
+                        ></input>
+                        <label for="website">Una pàgina web (500€)</label>
+                    </li>
+                    <li>
+                        <input id="seo" type="checkbox"></input>
+                        <label for="seo">Una consultoria SEO (300€)</label>
+                    </li>
+                    <li>
+                        <input id="google" type="checkbox"></input>
+                        <label for="google">
+                            Una campanya de Google Ads (200€)
+                        </label>
+                    </li>
+                </ul>
+            </form>
+            <p>Preu: {price}€</p>
+        </div>
+    );
 }
 
 export default App;
