@@ -1,9 +1,11 @@
 import { useState } from "react";
 function App() {
     const [price, setprice] = useState(0);
-    const handleInputChange = () => {
-        setprice((price) => (price += 500));
-        /* console.log(value); */
+    const handleInputChange = (event) => {
+        const value = +event.target.value;
+        event.target.checked
+            ? setprice((price) => (price += value))
+            : setprice((price) => (price -= value));
     };
     return (
         <div>
@@ -14,16 +16,27 @@ function App() {
                         <input
                             id="website"
                             type="checkbox"
+                            value={500}
                             onChange={handleInputChange}
                         ></input>
                         <label for="website">Una pàgina web (500€)</label>
                     </li>
                     <li>
-                        <input id="seo" type="checkbox"></input>
+                        <input
+                            id="seo"
+                            type="checkbox"
+                            value={300}
+                            onChange={handleInputChange}
+                        ></input>
                         <label for="seo">Una consultoria SEO (300€)</label>
                     </li>
                     <li>
-                        <input id="google" type="checkbox"></input>
+                        <input
+                            id="google"
+                            type="checkbox"
+                            value={200}
+                            onChange={handleInputChange}
+                        ></input>
                         <label for="google">
                             Una campanya de Google Ads (200€)
                         </label>
