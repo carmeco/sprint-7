@@ -1,31 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Panell } from "./App.styles";
+import CountPanel from "./component/CountPanel";
 
 function App() {
-    //useState hooks
-    const [price, setprice] = useState(0);
-    const [check, setcheck] = useState({
+    //Hooks
+    const [check, setCheck] = useState({
         website: false,
         seo: false,
         google: false,
     });
-    const [pags, setpags] = useState(1);
-    const [langs, setlangs] = useState(1);
+    const [pags, setPags] = useState(1);
+    const [langs, setLangs] = useState(1);
 
-    const handleInputChange = (event) => {
-        setcheck({
+    //Events
+    const handleChange = (event) => {
+        setCheck((check) => ({
             ...check,
             [event.target.name]: !check[event.target.name],
-        });
+        }));
     };
 
-    //useEffect hooks
-    useEffect(() => {
-        let websitePrice = check.website ? 500 + pags * langs * 30 : 0;
-        let seoPrice = check.seo ? 300 : 0;
-        let googlePrice = check.google ? 200 : 0;
-        setprice(websitePrice + seoPrice + googlePrice);
-    }, [check, pags, langs]);
+    //Variable PRICE
+    let websitePrice = check.website ? 500 + pags * langs * 30 : 0;
+    let seoPrice = check.seo ? 300 : 0;
+    let googlePrice = check.google ? 200 : 0;
+    const price = websitePrice + seoPrice + googlePrice;
 
     return (
         <div>
@@ -37,34 +36,24 @@ function App() {
                             id="website"
                             name="website"
                             type="checkbox"
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                         ></input>
                         <label for="website">Una pàgina web (500€)</label>
                         {check.website && (
                             <Panell>
                                 <li>
-                                    <label for="pags">Número de pàgines </label>
-                                    <input
-                                        id="pags"
-                                        type="number"
-                                        value={pags}
-                                        min="1"
-                                        onChange={(event) =>
-                                            setpags(event.target.value)
-                                        }
-                                    ></input>
+                                    <CountPanel
+                                        label="Número de pàgines"
+                                        amount={pags}
+                                        setAmount={setPags}
+                                    ></CountPanel>
                                 </li>
                                 <li>
-                                    <label for="langs">Número d'idiomes </label>
-                                    <input
-                                        id="langs"
-                                        type="number"
-                                        value={langs}
-                                        min="1"
-                                        onChange={(event) =>
-                                            setlangs(event.target.value)
-                                        }
-                                    ></input>
+                                    <CountPanel
+                                        label="Número d'idiomes"
+                                        amount={langs}
+                                        setAmount={setLangs}
+                                    ></CountPanel>
                                 </li>
                             </Panell>
                         )}
@@ -74,7 +63,7 @@ function App() {
                             id="seo"
                             name="seo"
                             type="checkbox"
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                         ></input>
                         <label for="seo">Una consultoria SEO (300€)</label>
                     </li>
@@ -83,7 +72,7 @@ function App() {
                             id="google"
                             name="google"
                             type="checkbox"
-                            onChange={handleInputChange}
+                            onChange={handleChange}
                         ></input>
                         <label for="google">
                             Una campanya de Google Ads (200€)
