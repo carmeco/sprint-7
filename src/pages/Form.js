@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { Panell } from "./App.styles";
+import { Panell } from "./Form.styles";
 import CountPanel from "../components/CountPanel";
 
-function App() {
+const Form = () => {
     //useState hooks
     const initialCheck = JSON.parse(localStorage.getItem("check")) || {
         website: false,
@@ -106,6 +106,6 @@ function App() {
             <p>Preu: {price}€</p>
         </div>
     );
-}
+};
 
-export default App;
+export default Form;
