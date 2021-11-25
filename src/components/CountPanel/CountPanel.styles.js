@@ -19,3 +19,13 @@ export const Input = styled.input`
     text-align: center;
     border: none;
 `;
+
+export const InfoButton = styled.button`
+    color: #adb5bd;
+    border: none;
+    background: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+`;

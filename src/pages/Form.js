@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Panell } from "./Form.styles";
 import CountPanel from "../components/CountPanel";
+import InfoPopup from "../components/InfoPopup";
+import { useModal } from "react-hooks-use-modal";
+import { Wrapper } from "./Form.styles";
 
 const Form = () => {
     //useState hooks
@@ -25,7 +28,7 @@ const Form = () => {
         check.website && (website.current.checked = true);
         check.seo && (seo.current.checked = true);
         check.google && (google.current.checked = true);
-    }, []);
+    });
 
     //Events
     const handleChange = (event) => {
@@ -46,8 +49,16 @@ const Form = () => {
     localStorage.setItem("pags", JSON.stringify(pags));
     localStorage.setItem("langs", JSON.stringify(langs));
 
+    //useModal hooks
+    const [ModalPags, openPags] = useModal("root", {
+        preventScroll: true,
+    });
+    const [ModalLangs, openLangs] = useModal("root", {
+        preventScroll: true,
+    });
+
     return (
-        <div>
+        <Wrapper>
             <p>Què vols fer?</p>
             <form>
                 <ul>
@@ -67,6 +78,7 @@ const Form = () => {
                                         label="Número de pàgines"
                                         amount={pags}
                                         setAmount={setPags}
+                                        setInfo={openPags}
                                     ></CountPanel>
                                 </li>
                                 <li>
@@ -74,6 +86,7 @@ const Form = () => {
                                         label="Número d'idiomes"
                                         amount={langs}
                                         setAmount={setLangs}
+                                        setInfo={openLangs}
                                     ></CountPanel>
                                 </li>
                             </Panell>
@@ -104,7 +117,13 @@ const Form = () => {
                 </ul>
             </form>
             <p>Preu: {price}€</p>
-        </div>
+            <ModalPags>
+                <InfoPopup infoType="pags" count={pags} />
+            </ModalPags>
+            <ModalLangs>
+                <InfoPopup infoType="langs" count={langs} />
+            </ModalLangs>
+        </Wrapper>
     );
 };
 
