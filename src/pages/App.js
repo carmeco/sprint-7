@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Panell } from "./App.styles";
-import CountPanel from "./component/CountPanel";
+import CountPanel from "../components/CountPanel";
 
 function App() {
     //useState hooks
