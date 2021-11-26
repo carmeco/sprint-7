@@ -1,3 +1,4 @@
+import { useModal } from "react-hooks-use-modal";
 import { Button, Input, InfoButton } from "./CountPanel.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -5,8 +6,13 @@ import {
     faMinus,
     faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import InfoPopup from "../InfoPopup";
 
-const CountPanel = ({ label, amount, setAmount, setInfo }) => {
+const CountPanel = ({ label, amount, setAmount, infoType }) => {
+    const [Modal, open] = useModal("root", {
+        preventScroll: true,
+    });
+
     const increase = (event) => {
         event.preventDefault();
         setAmount((amount) => amount + 1);
@@ -21,11 +27,11 @@ const CountPanel = ({ label, amount, setAmount, setInfo }) => {
     };
     const handleClick = (event) => {
         event.preventDefault();
-        setInfo(true);
+        open();
     };
 
     return (
-        <div>
+        <li>
             <span>{label}</span>
             <Button onClick={increase}>
                 <FontAwesomeIcon icon={faPlus} />
@@ -37,7 +43,10 @@ const CountPanel = ({ label, amount, setAmount, setInfo }) => {
             <InfoButton onClick={handleClick}>
                 <FontAwesomeIcon icon={faInfoCircle} size="lg" />
             </InfoButton>
-        </div>
+            <Modal>
+                <InfoPopup infoType={infoType} count={amount} />
+            </Modal>
+        </li>
     );
 };
 

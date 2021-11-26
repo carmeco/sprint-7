@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Form from "./pages/Form";
+import Budget from "./pages/Budget";
 
 const App = (_) => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/form" element={<Form />}></Route>
+                <Route path="/budget" element={<Budget />}></Route>
             </Routes>
         </BrowserRouter>
     );

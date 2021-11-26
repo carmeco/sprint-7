@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
     padding: 1rem;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 `;
 
 export const Panell = styled.ul`

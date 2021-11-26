@@ -10,7 +10,7 @@ const Home = () => {
                     En aquesta aplicació trobaràs un formulari per calcular de
                     forma senzilla el cost de desenvolupar una pàgina web.
                 </p>
-                <Link to={"/form"}>Continua</Link>
+                <Link to={"/budget"}>Continua</Link>
             </Content>
         </Wrapper>
     );
