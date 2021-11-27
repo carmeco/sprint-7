@@ -16,7 +16,7 @@ const SavedBudget = ({ name, client, date, services, price }) => {
                     </ServicesList>
                 </li>
                 <li>
-                    <strong>Preu total: {price}</strong>
+                    <strong>Preu total: {price}€</strong>
                 </li>
             </ul>
         </Wrapper>

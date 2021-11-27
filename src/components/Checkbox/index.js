@@ -1,10 +1,4 @@
-import { useRef, useEffect } from "react";
-
-const Checkbox = ({ label, check, setCheck, children }) => {
-    const ref = useRef(null);
-    useEffect(() => {
-        check && (ref.current.checked = true);
-    });
+const Checkbox = ({ label, name, check, setCheck, children }) => {
     const handleChange = (event) => {
         setCheck(event.target.checked);
     };
@@ -12,11 +6,11 @@ const Checkbox = ({ label, check, setCheck, children }) => {
     return (
         <li>
             <input
-                id={check}
-                name={check}
-                ref={ref}
+                id={name}
+                name={name}
                 type="checkbox"
                 onChange={handleChange}
+                checked={check}
             ></input>
             <label for={check}>{label}</label>
             {check && children}

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Wrapper, Panell } from "./Budget.styles";
 import Checkbox from "../components/Checkbox";
 import CountPanel from "../components/CountPanel";
@@ -18,40 +18,61 @@ const Budget = () => {
     const [langs, setLangs] = useState(initialLangs);
     const [budgets, setBudgets] = useState([]);
 
+    //Variable PRICE
+    const websitePrice = website ? 500 + pags * langs * 30 : 0;
+    const seoPrice = seo ? 300 : 0;
+    const googlePrice = google ? 200 : 0;
+    const price = websitePrice + seoPrice + googlePrice;
+
+    //LocalStorage
+    useEffect(() => {
+        localStorage.setItem("website", JSON.stringify(website));
+        localStorage.setItem("seo", JSON.stringify(seo));
+        localStorage.setItem("google", JSON.stringify(google));
+        localStorage.setItem("pags", JSON.stringify(pags));
+        localStorage.setItem("langs", JSON.stringify(langs));
+    }, [website, seo, google, pags, langs]);
+
     //useRef hooks
     const clientName = useRef(null);
     const budgetName = useRef(null);
 
-    //Variable PRICE
-    let websitePrice = website ? 500 + pags * langs * 30 : 0;
-    let seoPrice = seo ? 300 : 0;
-    let googlePrice = google ? 200 : 0;
-    const price = websitePrice + seoPrice + googlePrice;
-
-    //LocalStorage
-    localStorage.setItem("website", JSON.stringify(website));
-    localStorage.setItem("seo", JSON.stringify(seo));
-    localStorage.setItem("google", JSON.stringify(google));
-    localStorage.setItem("pags", JSON.stringify(pags));
-    localStorage.setItem("langs", JSON.stringify(langs));
-
-    //Submit
+    //Submit new Budget
     const handleSubmit = (event) => {
         event.preventDefault();
-        setBudgets([
-            ...budgets,
-            {
-                name: budgetName.current.value,
-                client: clientName.current.value,
-                date: new Date().toLocaleDateString(),
-                services: {
-                    website: website,
-                    seo: seo,
-                    google: google,
+        setBudgets((budgets) => {
+            return [
+                ...budgets,
+                {
+                    name: budgetName.current.value,
+                    client: clientName.current.value,
+                    date: new Date().toLocaleDateString(),
+                    services: {
+                        website: website,
+                        seo: seo,
+                        google: google,
+                    },
+                    price: price,
                 },
-                price: price,
-            },
-        ]);
+            ];
+        });
+    };
+
+    //Sort budgets
+    const sortAbc = (event) => {
+        event.preventDefault();
+        budgets.sort((a, b) =>
+            a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+        );
+    };
+    const sortDate = (event) => {
+        event.preventDefault();
+        budgets.sort((a, b) =>
+            a.price > b.price ? 1 : a.price < b.price ? -1 : 0
+        );
+    };
+    const sortReset = (event) => {
+        event.preventDefault();
     };
 
     return (
@@ -94,6 +115,7 @@ const Budget = () => {
                             <ul>
                                 <Checkbox
                                     label="Una pàgina web (500€)"
+                                    name="website"
                                     check={website}
                                     setCheck={setWebsite}
                                 >
@@ -114,11 +136,13 @@ const Budget = () => {
                                 </Checkbox>
                                 <Checkbox
                                     label="Una consultoria SEO (300€)"
+                                    name="seo"
                                     check={seo}
                                     setCheck={setSeo}
                                 ></Checkbox>
                                 <Checkbox
                                     label="Una campanya de Google Ads (200€)"
+                                    name="google"
                                     check={google}
                                     setCheck={setGoogle}
                                 ></Checkbox>
@@ -137,6 +161,9 @@ const Budget = () => {
             </div>
             <div>
                 <h2>Els teus pressupostos</h2>
+                <button onClick={sortAbc}>Ordena alfabèticament</button>
+                <button onClick={sortDate}>Ordena per preu</button>
+                <button onClick={sortReset}>Torna a l'ordre inicial</button>
                 <ul>
                     {budgets.map((budget) => (
                         <SavedBudget
