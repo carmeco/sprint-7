@@ -15,11 +15,11 @@ const CountPanel = ({ label, amount, setAmount, infoType }) => {
 
     const increase = (event) => {
         event.preventDefault();
-        setAmount((amount) => amount + 1);
+        setAmount((prev) => prev + 1);
     };
     const decrease = (event) => {
         event.preventDefault();
-        setAmount((amount) => (amount > 1 ? amount - 1 : amount));
+        setAmount((prev) => (prev > 1 ? prev - 1 : prev));
     };
     const handleChange = (event) => {
         event.preventDefault();
