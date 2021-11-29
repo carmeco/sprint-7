@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Wrapper, Panell } from "./Budget.styles";
 import Checkbox from "../components/Checkbox";
 import CountPanel from "../components/CountPanel";
-import SavedBudget from "../components/SavedBudget";
+import BudgetsList from "../components/BudgetsList";
 
 const Budget = () => {
     //useState hooks
@@ -53,26 +53,10 @@ const Budget = () => {
                         google: google,
                     },
                     price: price,
+                    id: budgets.length,
                 },
             ];
         });
-    };
-
-    //Sort budgets
-    const sortAbc = (event) => {
-        event.preventDefault();
-        budgets.sort((a, b) =>
-            a.name > b.name ? 1 : a.name < b.name ? -1 : 0
-        );
-    };
-    const sortDate = (event) => {
-        event.preventDefault();
-        budgets.sort((a, b) =>
-            a.price > b.price ? 1 : a.price < b.price ? -1 : 0
-        );
-    };
-    const sortReset = (event) => {
-        event.preventDefault();
     };
 
     return (
@@ -159,23 +143,7 @@ const Budget = () => {
                     </ul>
                 </form>
             </div>
-            <div>
-                <h2>Els teus pressupostos</h2>
-                <button onClick={sortAbc}>Ordena alfabèticament</button>
-                <button onClick={sortDate}>Ordena per preu</button>
-                <button onClick={sortReset}>Torna a l'ordre inicial</button>
-                <ul>
-                    {budgets.map((budget) => (
-                        <SavedBudget
-                            name={budget.name}
-                            client={budget.client}
-                            date={budget.date}
-                            services={budget.services}
-                            price={budget.price}
-                        />
-                    ))}
-                </ul>
-            </div>
+            <BudgetsList budgets={budgets} setBudgets={setBudgets} />
         </Wrapper>
     );
 };
