@@ -1,5 +1,5 @@
 import SavedBudget from "../SavedBudget";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,7 +9,11 @@ const BudgetsList = ({ budgets, setBudgets }) => {
     const searchBudget = (event) => {
         event.preventDefault();
         setBudgets((prev) =>
-            prev.filter((budget) => searchBar.current.value === budget.name)
+            prev.filter((budget) =>
+                budget.name
+                    .toLowerCase()
+                    .includes(searchBar.current.value.toLowerCase())
+            )
         );
     };
 
