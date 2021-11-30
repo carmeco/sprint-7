@@ -62,7 +62,7 @@ const BudgetsList = ({ budgets, setBudgets }) => {
                         date={budget.date}
                         services={budget.services}
                         price={budget.price}
-                        key={budgets.id}
+                        key={budget.id}
                     />
                 ))}
             </ul>

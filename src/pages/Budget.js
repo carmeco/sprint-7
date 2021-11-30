@@ -11,12 +11,13 @@ const Budget = () => {
     const initialGoogle = JSON.parse(localStorage.getItem("google")) || false;
     const initialPags = JSON.parse(localStorage.getItem("pags")) || 1;
     const initialLangs = JSON.parse(localStorage.getItem("langs")) || 1;
+    const initialBudgets = JSON.parse(localStorage.getItem("budgets")) || [];
     const [website, setWebsite] = useState(initialWebsite);
     const [seo, setSeo] = useState(initialSeo);
     const [google, setGoogle] = useState(initialGoogle);
     const [pags, setPags] = useState(initialPags);
     const [langs, setLangs] = useState(initialLangs);
-    const [budgets, setBudgets] = useState([]);
+    const [budgets, setBudgets] = useState(initialBudgets);
 
     //Variable PRICE
     const websitePrice = website ? 500 + pags * langs * 30 : 0;
@@ -31,7 +32,8 @@ const Budget = () => {
         localStorage.setItem("google", JSON.stringify(google));
         localStorage.setItem("pags", JSON.stringify(pags));
         localStorage.setItem("langs", JSON.stringify(langs));
-    }, [website, seo, google, pags, langs]);
+        localStorage.setItem("budgets", JSON.stringify(budgets));
+    }, [website, seo, google, pags, langs, budgets]);
 
     //useRef hooks
     const clientName = useRef(null);
