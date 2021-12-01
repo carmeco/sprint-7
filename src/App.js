@@ -6,8 +6,13 @@ const App = (_) => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/budget" element={<Budget />}></Route>
+                <Route path="/" element={<Home />} />
+                <Route path="/budget" element={<Budget />}>
+                    <Route
+                        path="?paginaWeb=:boolean&consultoriaSeo=:boolean&campanyaAds=:boolean&pagines=:num&idiomes=:num"
+                        element={<Budget />}
+                    />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

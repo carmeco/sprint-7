@@ -3,6 +3,7 @@ import { Wrapper, Panell } from "./Budget.styles";
 import Checkbox from "../components/Checkbox";
 import CountPanel from "../components/CountPanel";
 import BudgetsList from "../components/BudgetsList";
+import { useNavigate } from "react-router";
 
 const Budget = () => {
     //useState hooks
@@ -60,6 +61,14 @@ const Budget = () => {
             ];
         });
     };
+
+    //URL
+    let navigate = useNavigate();
+    useEffect(() => {
+        navigate(
+            `?paginaWeb=${website}&consultoriaSeo=${seo}&campanyaAds=${google}&pagines=${pags}idiomes=${langs}`
+        );
+    }, [website, seo, google, pags, langs]);
 
     return (
         <Wrapper>
