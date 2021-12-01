@@ -63,7 +63,7 @@ const Budget = () => {
     };
 
     //URL
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         navigate(
             `?paginaWeb=${website}&consultoriaSeo=${seo}&campanyaAds=${google}&pagines=${pags}idiomes=${langs}`
