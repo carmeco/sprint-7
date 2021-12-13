@@ -154,7 +154,7 @@ const Budget = () => {
                     </ul>
                 </form>
             </div>
-            <BudgetsList budgets={budgets} setBudgets={setBudgets} />
+            <BudgetsList budgets={budgets} />
         </Wrapper>
     );
 };

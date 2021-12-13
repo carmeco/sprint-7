@@ -1,14 +1,15 @@
 import SavedBudget from "../SavedBudget";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const BudgetsList = ({ budgets, setBudgets }) => {
+const BudgetsList = ({ budgets }) => {
+    const [budgetsList, setBudgetsList] = useState(budgets);
     //Search by name
     const searchBar = useRef(null);
     const searchBudget = (event) => {
         event.preventDefault();
-        setBudgets((prev) =>
+        setBudgetsList((prev) =>
             prev.filter((budget) =>
                 budget.name
                     .toLowerCase()
@@ -20,7 +21,7 @@ const BudgetsList = ({ budgets, setBudgets }) => {
     //Sort items
     const sortAbc = (event) => {
         event.preventDefault();
-        setBudgets((prev) =>
+        setBudgetsList((prev) =>
             [...prev].sort((a, b) =>
                 a.name > b.name ? 1 : a.name < b.name ? -1 : 0
             )
@@ -28,7 +29,7 @@ const BudgetsList = ({ budgets, setBudgets }) => {
     };
     const sortPrice = (event) => {
         event.preventDefault();
-        setBudgets((prev) =>
+        setBudgetsList((prev) =>
             [...prev].sort((a, b) =>
                 a.price > b.price ? 1 : a.price < b.price ? -1 : 0
             )
@@ -36,9 +37,7 @@ const BudgetsList = ({ budgets, setBudgets }) => {
     };
     const sortReset = (event) => {
         event.preventDefault();
-        setBudgets((prev) =>
-            [...prev].sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0))
-        );
+        setBudgetsList([...budgets]);
     };
 
     return (
@@ -55,7 +54,7 @@ const BudgetsList = ({ budgets, setBudgets }) => {
             <button onClick={sortPrice}>Ordena per preu</button>
             <button onClick={sortReset}>Torna a l'ordre inicial</button>
             <ul>
-                {budgets.map((budget) => (
+                {budgetsList.map((budget) => (
                     <SavedBudget
                         name={budget.name}
                         client={budget.client}
